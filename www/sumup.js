@@ -4,15 +4,6 @@ module.exports = {
   login: (sumUpKeys, success, failure) => {
     cordova.exec(success, failure, CLASS, "login", [sumUpKeys]);
   },
-  auth: (accessToken, success, failure) => {
-    cordova.exec(
-      success,
-      failure,
-      CLASS,
-      "auth",
-      accessToken ? [accessToken] : []
-    );
-  },
   getSettings: (success, failure) => {
     cordova.exec(success, failure, CLASS, "getSettings", []);
   },
@@ -25,14 +16,11 @@ module.exports = {
   prepare: (success, failure) => {
     cordova.exec(success, failure, CLASS, "prepare", []);
   },
-  setup: (success, failure) => {
+  setup: (success, failure) => { // iOS only
     cordova.exec(success, failure, CLASS, "setup", []);
   },
-  test: (success, failure) => {
+  test: (success, failure) => { // iOS only
     cordova.exec(success, failure, CLASS, "test", []);
-  },
-  closeConnection: (success, failure) => {
-    cordova.exec(success, failure, CLASS, "closeConnection", []);
   },
   pay: (amount, title, currencyCode, success, failure) => {
     cordova.exec(success, failure, CLASS, "pay", [amount, title, currencyCode]);

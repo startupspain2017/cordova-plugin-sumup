@@ -128,13 +128,6 @@ Like described in [Installation](#installation).
 
 Now you can set your **affiliate key** value on the object.
 
-#### auth
-
-`SumUp.auth(accessToken: string)`
-
-Authenticates the account with the given access token.
-Parameter **accessToken** is required.
-
 #### getSettings
 
 `SumUp.getSettings()`
@@ -173,12 +166,6 @@ For iOS, this is **required** before using other functions.
 
 Test the SumUp SDK integration.
 Currently only for iOS.
-
-#### closeConnection
-
-`SumUp.closeConnection()`
-
-Tries to close the connection to the card terminal.
 
 #### pay
 
