@@ -241,7 +241,7 @@ public class SumUp extends CordovaPlugin {
         BigDecimal amount;
 
         try {
-            amount = new BigDecimal(/*args.get(0).toString()*/"2");
+            amount = new BigDecimal(args.get(0).toString());
         } catch (Exception e) {
             JSONObject obj = createReturnObject(CANT_PARSE_AMOUNT, "Can't parse amount");
             returnCordovaPluginResult(PluginResult.Status.ERROR, obj, true);
