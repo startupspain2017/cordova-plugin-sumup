@@ -241,7 +241,7 @@ public class SumUp extends CordovaPlugin {
         BigDecimal amount;
 
         try {
-            amount = new BigDecimal(args.get(0).toString());
+            amount = new BigDecimal(/*args.get(0).toString()*/"2");
         } catch (Exception e) {
             JSONObject obj = createReturnObject(CANT_PARSE_AMOUNT, "Can't parse amount");
             returnCordovaPluginResult(PluginResult.Status.ERROR, obj, true);
@@ -298,7 +298,7 @@ public class SumUp extends CordovaPlugin {
                     Integer code = extras.getInt(SumUpAPI.Response.RESULT_CODE);
                     String message = extras.getString(SumUpAPI.Response.MESSAGE);
 
-                    JSONObject obj = createReturnObject(code, message);
+                    JSONObject obj = createReturnObject(code, "BEE RUP" + message);
                     if (code == 1) {
                         returnCordovaPluginResult(PluginResult.Status.OK, obj, false);
                     } else {
@@ -312,7 +312,7 @@ public class SumUp extends CordovaPlugin {
                 JSONObject obj = createReturnObject(LOGIN_ERROR, e.getMessage());
                 returnCordovaPluginResult(PluginResult.Status.ERROR, obj, true);
             }
-        }
+        } else 
 
         // payment screen
         if (requestCode == REQUEST_CODE_PAYMENT) {
@@ -326,6 +326,7 @@ public class SumUp extends CordovaPlugin {
                     JSONObject obj = new JSONObject();
 
                     if (txinfo != null) {
+                        obj.put("beer_up", "0");
                         obj.put("transaction_code", txinfo.getTransactionCode());
                         obj.put("merchant_code", txinfo.getMerchantCode());
                         obj.put("amount", txinfo.getAmount());
@@ -340,10 +341,13 @@ public class SumUp extends CordovaPlugin {
                         obj.put("last_4_digits", txinfo.getCard().getLast4Digits());
                     }
 
-                    if (code == 1) {
+                    obj.put("BeerUp", "100");
+
+                    //if (code == 1) {
                         returnCordovaPluginResult(PluginResult.Status.OK, obj, false);
-                    } else {
+                    /*} else {
                         obj = createReturnObject(code, "Payment error");
+                        obj.put("BeerUp", "2");
 
                         // UserModel um;
                         // um = CoreState.Instance().get(UserModel.class);
@@ -353,16 +357,20 @@ public class SumUp extends CordovaPlugin {
                         //     obj = createReturnObject(code, "Payment error");
                         // }
                         returnCordovaPluginResult(PluginResult.Status.ERROR, obj, false);
-                    }
+                    }*/
                 } else {
                     JSONObject obj = createReturnObject(PAYMENT_ERROR, "Payment error");
+                    obj.put("BeerUp", "3");
                     returnCordovaPluginResult(PluginResult.Status.ERROR, obj, false);
                 }
             } catch (Exception e) {
                 JSONObject obj = createReturnObject(PAYMENT_ERROR, e.getMessage());
+                try {
+                    obj.put("BeerUp", "4");
+                } catch (Exception exc) {}
                 returnCordovaPluginResult(PluginResult.Status.ERROR, obj, true);
             }
-        }
+        } else 
 
         // Settings screen
         if (requestCode == REQUEST_CODE_PAYMENT_SETTINGS) {
@@ -387,6 +395,9 @@ public class SumUp extends CordovaPlugin {
                 JSONObject obj = createReturnObject(SHOW_SETTINGS_FAILED, e.getMessage());
                 returnCordovaPluginResult(PluginResult.Status.ERROR, obj, true);
             }
+        } else {
+            JSONObject obj = createReturnObject(199, "ERROR BEER UP");
+            returnCordovaPluginResult(PluginResult.Status.ERROR, obj, true);
         }
     }
 
